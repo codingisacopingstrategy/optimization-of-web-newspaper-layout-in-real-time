@@ -35,6 +35,14 @@
         document.writeln("    <title>Optimizacion de Presentacion</title>");
       else
         document.writeln("    <title>Layout Optimization</title>");
+      
+      $(function() {
+        $('div').css("position","absolute");
+        theLayout = new Layout (window, pixelsCol, pixelsGap);
+        theLayout.optimize();
+        // redraw on resize:
+        $(window).resize(function() { theLayout.optimize(); });
+        });
     </script>
     <style>
         * {
@@ -306,8 +314,5 @@ weekly news briefing.</p>
      </div>
 
 
-    <script>
-      theLayout = new Layout (window, pixelsCol, pixelsGap);
-    </script>
   </body>
 </html>

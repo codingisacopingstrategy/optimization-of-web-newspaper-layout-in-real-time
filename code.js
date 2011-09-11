@@ -82,7 +82,7 @@ function calculateFitnessChrom()
 
     // fill the column selected with the height of the layer
     for (var k=selCol ; k < selCol+theLayout.widths[this.adn[i]] ; k++) {
-      filledCols[k] = max + theLayout.layers[this.adn[i]].clip.height +
+      filledCols[k] = max + $(theLayout.layers[this.adn[i]]).height() +
                       theLayout.pixelsGap;
     }
   }
@@ -200,14 +200,14 @@ function Chromosome(size)
 //
 function optimizeLayout(controlPanel, numIt, k, language)
 {
-  this.numCols = Math.floor(this.frame.innerWidth/this.pixelsCol);
+  this.numCols = Math.floor($(window).width()/this.pixelsCol);
   this.numLayers = this.layers.length;
 
   // calculates the width in columns of every layer
   this.widths = new Array(this.numLayers);
 
   for (var i=0 ; i<this.numLayers ; i++) {
-    this.widths[i] = parseInt((this.layers[i].clip.width/this.pixelsCol)+0.5);
+    this.widths[i] = parseInt(($(this.layers[i]).width()/this.pixelsCol)+0.5);
   }
 
   
@@ -349,12 +349,12 @@ function paintLayout(chrom)
     }
 
     // move the layer to the right position
-    this.layers[chrom.adn[i]].moveTo( selCol*this.pixelsCol,
-                                      max);
+    $(this.layers[chrom.adn[i]]).css( { left: selCol*this.pixelsCol,
+                                     top: max });
 
     // fill the column selected with the height of the layer
     for (var k=selCol ; k < selCol+this.widths[chrom.adn[i]] ; k++) {
-      filledCols[k] = max + this.layers[chrom.adn[i]].clip.height +
+      filledCols[k] = max + $(this.layers[chrom.adn[i]]).height() +
                       this.pixelsGap;
     }
   }
@@ -368,12 +368,11 @@ function paintLayout(chrom)
 //
 function Layout (layersFrame, pixelsCol, pixelsGap)
 {
-  this.frame = layersFrame;
-  this.layers = this.frame.document.layers;
+  this.layers = $('div');
   this.numLayers = this.layers.length;
   this.pixelsCol = pixelsCol;
   this.pixelsGap = pixelsGap;
-  this.numCols = Math.floor(this.frame.innerWidth/this.pixelsCol);
+  this.numCols = Math.floor($(window).width()/this.pixelsCol);
   this.numGen = 0;
 
   this.optimize = optimizeLayout;
