@@ -103,7 +103,7 @@ function calculateFitnessChrom()
   // this part tries to minimize the gaps
 
   // If there were only one gap, the standard deviation would be 0,
-  // so I insert a ficticious gap to avoid this problem
+  // so I insert a fictitious gap to avoid this problem
   gaps.push (0);
 
   var gapsMean = 0;   // gap size mean
